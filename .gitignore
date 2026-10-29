@@ -1,6 +1,7 @@
-# Private / Submission Files (local only, do NOT push to GitHub)
-docs/
-backend/
+# Private / Submission Archive (local only, do NOT push to GitHub)
+archive/
+*.zip
+docs/**/*.html
 
 # Environments & Secrets (DO NOT COMMIT)
 .env
