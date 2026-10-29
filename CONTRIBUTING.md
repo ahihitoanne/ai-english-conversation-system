@@ -1,38 +1,95 @@
-# Contributing to VocabTalk
+# Contributing to ai-english-conversation-system
 
-## Branching Strategy
-- `main` — stable, demo-ready code only
-- `develop` — working integration branch
-- `feature/<name>` — individual feature branches (e.g. `feature/vad-voice`, `feature/gemini-service`)
+> **Môn học:** Nhập môn Công nghệ Phần mềm — ĐH Khoa học Tự nhiên, ĐHQG TP.HCM  
+> **GVHD:** ThS. Ngô Ngọc Đăng Khoa | **HK1 – 2026-2027**
 
-## Commit Message Convention
-Follow the format: `<type>(<scope>): <description>`
+---
 
-| Type | Usage |
-| :--- | :--- |
-| `feat` | A new feature |
-| `fix` | A bug fix |
-| `refactor` | Code restructuring without behavior change |
-| `docs` | Documentation only changes |
-| `test` | Adding or updating tests |
-| `chore` | Build process, config, or dependency updates |
+## 👥 Phân công & Module ownership
 
-**Examples:**
+| MSSV | Họ và tên | Vai trò | Module chủ sở hữu |
+| :---: | :--- | :--- | :--- |
+| **24120467** | Phạm Đức Toàn | **Backend Developer / Lead** | `core_backend/` + `ai_engine/` (Groq, Gemini, US04). Quản lý repo |
+| **19120501** | Nguyễn Nhật Hảo | Scrum Master | Auth (US01), Admin Portal (US06), Deploy |
+| **24120263** | Đỗ Ngọc Gia Bảo | Product Owner | Nội dung kịch bản & từ vựng (US02, US03), kiểm thử nghiệm thu |
+| **19120627** | Hồ Minh Quân | Frontend Developer | `frontend/` (MediaRecorder, phụ đề, báo cáo, US05) |
+
+> **Quy tắc:** Mỗi file có 1 thành viên phụ trách chính (owner) và ít nhất 1 người review trước khi merge.
+
+---
+
+## 🌿 Branching Strategy
+
 ```
-feat(ai_engine): implement Groq Whisper STT transcription service
-feat(core_backend): add PostgreSQL session history model
-fix(frontend): fix VAD silence threshold for noisy environments
+main          ← Chỉ chứa code ổn định, sẵn sàng demo cho thầy
+  └── develop ← Nhánh tích hợp, làm việc chung hàng ngày
+        ├── feature/groq-stt-service    (Toàn)
+        ├── feature/gemini-service      (Toàn)
+        ├── feature/auth-login          (Hảo)
+        ├── feature/admin-portal        (Hảo)
+        ├── feature/scenario-library    (Bảo)
+        └── feature/voice-room-ui       (Quân)
 ```
 
-## Pull Request Rules
-1. Always branch off from `develop`, never directly from `main`.
-2. Create a Pull Request (PR) into `develop` and request review from at least 1 teammate.
-3. Only merge `develop` → `main` when a milestone feature is fully working.
+**Quy tắc bắt buộc:**
+- Luôn tạo nhánh `feature/<tên>` từ `develop`, **không bao giờ** từ `main`.
+- Tạo **Pull Request (PR)** vào `develop` và cần ít nhất **1 thành viên khác approve** trước khi merge.
+- Chỉ merge `develop` → `main` khi Sprint milestone hoàn chỉnh và đã kiểm thử.
 
-## Module Ownership
-| Module | Owner |
+---
+
+## 📝 Commit Message Convention
+
+Format: **`<type>(<scope>): <mô tả ngắn gọn bằng tiếng Anh>`**
+
+| Type | Khi nào dùng |
 | :--- | :--- |
-| `frontend/` | Hồ Minh Quân (19120627) |
-| `core_backend/` | Nguyễn Quốc Hưng (24120263) |
-| `ai_engine/` | Nguyễn Hoàng Phát (24120467) |
-| Integration & Infra | Bùi Minh Nhật (19120501) |
+| `feat` | Thêm tính năng mới |
+| `fix` | Sửa lỗi |
+| `refactor` | Tái cấu trúc code (không thay đổi hành vi) |
+| `docs` | Chỉ cập nhật tài liệu |
+| `test` | Thêm hoặc cập nhật test |
+| `chore` | Cấu hình build, cài đặt thư viện, CI/CD |
+| `style` | Format code, sửa lint (không thay đổi logic) |
+
+**Ví dụ đúng:**
+```
+feat(ai_engine): implement Groq Whisper STT transcription endpoint
+feat(core_backend): add JWT authentication middleware for protected routes
+feat(frontend): build voice recording UI with start/stop controls
+fix(ai_engine): handle Gemini rate limit 429 with fallback mock response
+refactor(core_backend): normalize scenario seed data structure
+docs: update README setup instructions for Windows
+```
+
+**Ví dụ sai (không dùng):**
+```
+update code
+fix bug
+them tinh nang moi
+```
+
+---
+
+## 🔄 Quy trình làm việc (Scrum)
+
+| Sự kiện | Mô tả |
+| :--- | :--- |
+| **Sprint Planning** | Đầu mỗi Sprint (2 tuần): chọn User Story, phân công, ước lượng |
+| **Daily Scrum** | 10–15 phút mỗi buổi làm việc chung: hôm qua làm gì, hôm nay làm gì, có vướng mắc gì |
+| **Sprint Review** | Cuối Sprint: demo tính năng đã hoàn thành, đánh giá so với tiêu chí nghiệm thu |
+| **Sprint Retrospective** | Nhóm nhìn lại cách phối hợp, đề xuất cải thiện cho Sprint tiếp theo |
+
+**Công cụ phối hợp:** GitHub Issues + GitHub Projects (Kanban board) + Git PRs.
+
+---
+
+## 🚀 Pull Request Checklist
+
+Trước khi tạo PR, kiểm tra:
+- [ ] Code chạy được, không có lỗi syntax hoặc import
+- [ ] Commit message đúng convention
+- [ ] Không commit file `.env` (chứa API key thật)
+- [ ] Không commit thư mục `docs/`, `node_modules/`, `.venv/`
+- [ ] Đã tự test thủ công chức năng đã làm
+- [ ] Mô tả PR rõ "Đã làm gì" và "Cách test"

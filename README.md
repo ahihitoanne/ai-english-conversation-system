@@ -1,116 +1,110 @@
-# 🎙️ VocabTalk — AI Hands-free Voice English Practice System
+# 🎙️ Hệ thống Hỗ trợ Luyện Hội thoại Tiếng Anh Nhập vai theo Ngữ cảnh Tích hợp Trợ lý AI
 
-> **Môn học:** Nhập môn Công nghệ Phần mềm (CSC13002) — ĐH Khoa học Tự nhiên (HCMUS)  
-> **Nhóm thực hiện:** STTNhom (19120501 - 19120627 - 24120263 - 24120467)  
-> **Định vị sản phẩm:** Luyện giao tiếp tiếng Anh nhập vai đàm thoại hai chiều rảnh tay bằng giọng nói với Trợ lý AI.
+> **Môn học:** Nhập môn Công nghệ Phần mềm — ĐH Khoa học Tự nhiên, ĐHQG TP.HCM  
+> **GVHD:** ThS. Ngô Ngọc Đăng Khoa  
+> **Học kỳ 1 – Năm học 2026-2027**
+
+---
+
+## 📋 Giới thiệu
+
+Ứng dụng Web cho phép sinh viên luyện hội thoại tiếng Anh nhập vai theo từng tình huống thực tế (gọi món, phỏng vấn thực tập, ...) thông qua trợ lý AI. Hệ thống hỗ trợ ghi âm theo lượt, chuyển giọng nói thành văn bản, tạo phản hồi AI theo ngữ cảnh, gợi ý cách diễn đạt tự nhiên hơn (Better Phrasing) và báo cáo tiến bộ học tập.
 
 ---
 
 ## 🏛️ Kiến trúc hệ thống (3-Tier Architecture)
 
-![Kiến trúc VocabTalk](docs/architecture_diagram.png)
-
-1. **Tầng Giao diện (Presentation Layer):**
-   * **Framework:** Next.js (React Server Components) + Tailwind CSS + Framer Motion.
-   * **Audio & Voice:** Thư viện `@ricky0123/vad-web` phát hiện khoảng lặng (Client-side VAD 600ms–800ms) + Web Speech API (TTS).
-2. **Tầng Nghiệp vụ (Application Layer):**
-   * **Framework:** Python FastAPI (REST API, OpenAPI/Swagger docs tự động).
-   * **AI Connectors:**
-     * **Groq Whisper API:** STT siêu tốc (~0.2s latency) với độ chính xác >95%.
-     * **Google Gemini API:** Xử lý hội thoại thông minh, gộp Prompt 3-trong-1 (trả về lời đáp + Better Phrasing sửa lỗi + gợi ý câu trả lời nhanh).
-3. **Tầng Dữ liệu (Data Layer):**
-   * **Cơ sở dữ liệu:** **PostgreSQL 16** tích hợp extension `pgvector`.
-   * **ORM:** SQLAlchemy 2.0.
-   * **Tiêu chí:** Text-only storage (chỉ lưu phụ đề và lịch sử hội thoại, không lưu file âm thanh $\rightarrow$ chi phí 0 VNĐ, bảo mật tuyệt đối).
+| Tầng | Công nghệ |
+| :--- | :--- |
+| **Giao diện (Presentation)** | Next.js (React) + Tailwind CSS + Framer Motion, MediaRecorder (thu âm), Web Speech API (phát âm) |
+| **Nghiệp vụ (Application)** | Python FastAPI — xử lý yêu cầu, phân quyền, tích hợp AI |
+| **AI Engine** | Groq Whisper API (STT ~0.2s) + Google Gemini API (phản hồi 3-trong-1: đối đáp + sửa lỗi + gợi ý) |
+| **Dữ liệu (Data)** | PostgreSQL 16 (pgvector) — chỉ lưu văn bản & chỉ số học tập, không lưu file âm thanh |
 
 ---
 
-## 📂 Cấu trúc Repository (Monorepo)
+## 📂 Cấu trúc Repository
 
 ```text
-VocabTalk/
-├── docs/                                  # Toàn bộ tài liệu chính thức đã nộp
-│   ├── STTNhom-19120501-19120627...zip    # File nén nộp bài
-│   ├── ProjectProposal.md                 # Đề xuất đồ án chi tiết
-│   ├── PROJECT_SPEC_VOCABTALK.md          # Đặc tả 5 tính năng cốt lõi (F01–F05)
-│   ├── GHI_CHU_KIEN_TRUC_VOCABTALK.md     # Sổ tay kiến trúc, giải pháp kỹ thuật
-│   └── architecture_diagram.png           # Sơ đồ kiến trúc 3 tầng
-├── backend/                               # Máy chủ FastAPI + PostgreSQL
-│   ├── app/
-│   │   ├── api/v1/                        # Router endpoints (/chat, /scenarios)
-│   │   ├── core/                          # Config, PostgreSQL connection & session
-│   │   ├── models/                        # SQLAlchemy Models (User, Scenario, Session)
-│   │   ├── schemas/                       # Pydantic Schemas
-│   │   └── services/                      # Groq Whisper STT & Gemini LLM
-│   ├── requirements.txt
-│   ├── .env.example
-│   ├── Dockerfile
-│   └── main.py
-├── frontend/                              # Ứng dụng Next.js
-│   ├── .env.example
-│   └── README.md
-├── docker-compose.yml                     # Chạy PostgreSQL (pgvector) & Adminer
-├── .gitignore
+ai-english-conversation-system/
+├── frontend/              # Ứng dụng Next.js (React, Tailwind CSS, VAD, Framer Motion)
+├── core_backend/          # Máy chủ FastAPI + kết nối PostgreSQL
+│   └── app/
+│       ├── api/v1/        # REST API endpoints (/chat, /scenarios)
+│       ├── core/          # Config, PostgreSQL session factory
+│       ├── models/        # SQLAlchemy ORM (User, Scenario, Vocabulary, Session, Turn)
+│       └── schemas/       # Pydantic v2 request/response schemas
+├── ai_engine/             # Dịch vụ AI: Groq Whisper STT & Gemini 3-in-1 batching
+│   ├── services/          # groq_service.py, gemini_service.py
+│   └── prompts/           # System prompt templates cho từng kịch bản
+├── docker-compose.yml     # Khởi động PostgreSQL 16 (pgvector) + Adminer Web UI
+├── run_services.bat       # Khởi động tất cả services 1 lệnh (Windows)
+├── CONTRIBUTING.md        # Quy ước commit, branching, phân công thành viên
 └── README.md
 ```
 
+> **Lưu ý:** Thư mục `docs/` (tài liệu nộp bài) được lưu cục bộ và **không được push lên GitHub** (đã thêm vào `.gitignore`).
+
 ---
 
-## ⚡ Hướng dẫn cài đặt & Khởi chạy (Local Development)
+## ⚡ Hướng dẫn cài đặt & Khởi chạy
 
-### 1. Khởi động Cơ sở dữ liệu PostgreSQL (Khuyên dùng Docker)
-Chỉ cần chạy lệnh sau tại thư mục gốc:
+### 1. Khởi động PostgreSQL (Docker)
 ```bash
 docker compose up -d
 ```
-* **PostgreSQL:** Chạy tại port `5432` (`user: postgres`, `password: postgrespassword`, `database: vocabtalk`).
-* **Adminer (Xem DB trên Web):** Truy cập `http://localhost:8080` (Hệ thống: `PostgreSQL`, Máy chủ: `db`, Tài khoản: `postgres`, Mật khẩu: `postgrespassword`, CSDL: `vocabtalk`).
+- **PostgreSQL** tại port `5432` (user: `postgres`, pass: `postgrespassword`, db: `vocabtalk`)
+- **Adminer UI** tại `http://localhost:8080` — xem dữ liệu trực quan trên trình duyệt
 
-*(Nếu không dùng Docker, bạn có thể tạo database trên [Supabase](https://supabase.com/) hoặc [Neon](https://neon.tech/) rồi dán connection string vào `backend/.env`).*
-
----
-
-### 2. Cài đặt & Chạy Backend (FastAPI)
+### 2. Chạy Backend (FastAPI)
 ```bash
-cd backend
+cd core_backend
 
-# 1. Tạo môi trường ảo Python
 python -m venv .venv
-# Trên Windows:
-.venv\Scripts\activate
-# Trên macOS/Linux:
-source .venv/bin/activate
+.venv\Scripts\activate        # Windows
+# source .venv/bin/activate   # macOS / Linux
 
-# 2. Cài đặt thư viện
 pip install -r requirements.txt
+copy .env.example .env        # Điền GROQ_API_KEY và GEMINI_API_KEY vào file .env
 
-# 3. Tạo file cấu hình môi trường
-copy .env.example .env    # Trên Windows
-# cp .env.example .env     # Trên Linux/macOS
-
-# 4. Khởi động Backend
 python main.py
 ```
-* Backend API: `http://localhost:8000`
-* Swagger API Documentation: `http://localhost:8000/docs`
+- API: `http://localhost:8000`
+- Swagger Docs: `http://localhost:8000/docs`
 
----
-
-### 3. Cài đặt & Chạy Frontend (Next.js)
+### 3. Chạy Frontend (Next.js)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-* Giao diện Web: `http://localhost:3000`
+- Giao diện: `http://localhost:3000`
+
+### ⚡ Hoặc khởi động tất cả cùng lúc (Windows)
+```bash
+run_services.bat
+```
 
 ---
 
-## 👥 Phân công thành viên nhóm
+## 👥 Thành viên nhóm
 
-| MSSV | Họ và tên | Vai trò chính |
-| :--- | :--- | :--- |
-| **19120501** | Bùi Minh Nhật | Project Manager / Fullstack Lead |
-| **24120263** | Nguyễn Quốc Hưng | Backend Developer (Database, API, CMS) |
-| **24120467** | Nguyễn Hoàng Phát | AI & Voice Engineer (Groq Whisper, Gemini Prompt) |
-| **19120627** | Hồ Minh Quân | Frontend Developer (Next.js, Web VAD, Audio UI) |
+| MSSV | Họ và tên | Vai trò | Module phụ trách chính |
+| :---: | :--- | :--- | :--- |
+| **24120467** | Phạm Đức Toàn | **Backend Developer / Lead** | `core_backend` + `ai_engine` — tích hợp Groq Whisper, Gemini, xử lý lỗi API, Better Phrasing (US04). Quản lý repo & tích hợp hệ thống |
+| **19120501** | Nguyễn Nhật Hảo | **Scrum Master** | Auth & phân quyền (US01), Admin Portal (US06), triển khai (deploy, HTTPS, biến môi trường) |
+| **24120263** | Đỗ Ngọc Gia Bảo | **Product Owner** | Thư viện kịch bản & từ vựng (US02, US03), nội dung hội thoại mẫu, kiểm thử nghiệm thu |
+| **19120627** | Hồ Minh Quân | **Frontend Developer** | `frontend` — giao diện phòng luyện thoại, MediaRecorder, phụ đề, báo cáo & lịch sử (US05) |
+
+---
+
+## 📌 Các chức năng chính (User Stories)
+
+| Mã | Mô tả |
+| :--- | :--- |
+| **US01** | Đăng ký, đăng nhập, quản lý thông tin cá nhân và phân quyền học viên / quản trị viên |
+| **US02** | Duyệt và chọn kịch bản giao tiếp theo chủ đề (đời sống, nghề nghiệp) |
+| **US03** | Tra cứu từ vựng, phiên âm IPA và câu ví dụ gắn với từng tình huống |
+| **US04** | Luyện hội thoại giọng nói với AI: ghi âm → STT → phản hồi AI → Better Phrasing → gợi ý câu |
+| **US05** | Xem báo cáo phiên học: thời lượng, số lượt, mục tiêu đạt được, câu đã được sửa |
+| **US06** | Quản trị viên thêm / sửa / xóa kịch bản và bộ từ vựng |
