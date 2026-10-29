@@ -18,11 +18,11 @@
 
 ---
 
-## 🌿 Branching Strategy
+## 🌿 Branching Strategy (Quy Tắc Chia Nhánh)
 
 ```
-main          ← Chỉ chứa code ổn định, sẵn sàng demo cho thầy
-  └── develop ← Nhánh tích hợp, làm việc chung hàng ngày
+main          ← CHỈ chứa code ổn định, sẵn sàng báo cáo/demo cho giảng viên
+  └── dev     ← Nhánh làm việc chung hàng ngày của toàn bộ nhóm
         ├── feature/groq-stt-service    (Toàn)
         ├── feature/gemini-service      (Toàn)
         ├── feature/auth-login          (Hảo)
@@ -31,10 +31,11 @@ main          ← Chỉ chứa code ổn định, sẵn sàng demo cho thầy
         └── feature/voice-room-ui       (Quân)
 ```
 
-**Quy tắc bắt buộc:**
-- Luôn tạo nhánh `feature/<tên>` từ `develop`, **không bao giờ** từ `main`.
-- Tạo **Pull Request (PR)** vào `develop` và cần ít nhất **1 thành viên khác approve** trước khi merge.
-- Chỉ merge `develop` → `main` khi Sprint milestone hoàn chỉnh và đã kiểm thử.
+**⚠️ Quy tắc bắt buộc đối với tất cả thành viên:**
+1. **Tuyệt đối không commit/push trực tiếp lên `main`.**
+2. **Tất cả thành viên làm việc trên nhánh `dev`** (hoặc tạo nhánh con `feature/<tên-tính-năng>` từ `dev`).
+3. Khi hoàn thành tính năng, tạo **Pull Request (PR)** merge vào `dev`.
+4. Chỉ merge từ `dev` vào `main` khi phiên bản đã qua kiểm thử ổn định và sẵn sàng nghiệm thu sprint/báo cáo.
 
 ---
 
