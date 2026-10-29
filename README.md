@@ -49,6 +49,9 @@ ai-english-conversation-system/
 
 ## ⚡ Hướng dẫn cài đặt & Khởi chạy
 
+> 📖 **Xem hướng dẫn chi tiết từng bước cho thành viên nhóm (Cả 2 cách: Local & Docker):**  
+> 👉 **[Xem file SETUP_GUIDE.md](./SETUP_GUIDE.md)**
+
 ### 1. Khởi động PostgreSQL (Docker)
 ```bash
 docker compose up -d

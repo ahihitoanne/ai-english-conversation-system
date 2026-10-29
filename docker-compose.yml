@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: pgvector/pgvector:pg16
@@ -28,6 +26,24 @@ services:
       - "8080:8080"
     depends_on:
       - db
+
+  # Backend Container (Dành cho Cách 2: Chạy toàn bộ bằng Docker)
+  backend:
+    profiles: ["all", "full"]
+    build:
+      context: .
+      dockerfile: core_backend/Dockerfile
+    container_name: vocabtalk_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgrespassword@db:5432/vocabtalk
+      - GROQ_API_KEY=${GROQ_API_KEY:-gsk_your_groq_api_key_here}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-your_gemini_api_key_here}
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:
