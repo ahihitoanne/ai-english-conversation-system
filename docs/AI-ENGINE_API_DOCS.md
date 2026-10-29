@@ -11,18 +11,18 @@ ai_engine/
 ├── prompts/
 │   └── chat_system.txt           # Prompt hệ thống gộp 3-trong-1
 ├── services/
-│   ├── groq_stt.py               # Groq Whisper-large-v3 STT Client
-│   └── gemini_llm.py             # Google Gemini 1.5 Flash Batching Client
+│   ├── groq_service.py           # Groq Whisper-large-v3 STT Client
+│   └── gemini_service.py         # Google Gemini 1.5 Flash Batching Client
 ├── requirements.txt              # groq, google-generativeai, python-dotenv
 └── .env.example                  # GROQ_API_KEY & GEMINI_API_KEY
 ```
 
 ---
 
-## 2. Dịch vụ Chuyển Âm Thanh Thành Văn Bản (`GroqWhisperService`)
+## 2. Dịch vụ Chuyển Âm Thanh Thành Văn Bản (`GroqService`)
 
 ### 2.1. Cấu hình kỹ thuật
-- **File thực thi:** `ai_engine/services/groq_stt.py`
+- **File thực thi:** `ai_engine/services/groq_service.py`
 - **Mô hình triển khai:** `whisper-large-v3` (chạy trên hạ tầng Groq LPU)
 - **Ngôn ngữ nhận dạng:** `en` (English)
 - **Nhiệt độ (Temperature):** `0.0` (Đảm bảo tính chính xác và nhất quán tuyệt đối)

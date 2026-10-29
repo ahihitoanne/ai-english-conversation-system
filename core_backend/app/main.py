@@ -1,3 +1,14 @@
+import sys
+from pathlib import Path
+
+# Ensure project root and core_backend are in sys.path for cross-module imports
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+CORE_DIR = Path(__file__).resolve().parent.parent
+if str(CORE_DIR) not in sys.path:
+    sys.path.insert(0, str(CORE_DIR))
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware

@@ -12,8 +12,8 @@ ai-english-conversation-system/
 │   ├── prompts/                # Prompt templates cho từng tác vụ AI
 │   │   └── chat_system.txt     # System prompt 3-trong-1 (tiếp thoại + sửa lỗi + phrasing)
 │   ├── services/               # Mã nguồn tích hợp AI API
-│   │   ├── groq_stt.py         # Groq Whisper-large-v3 Speech-to-Text service
-│   │   └── gemini_llm.py       # Google Gemini 1.5 Flash batching reasoning service
+│   │   ├── groq_service.py     # Groq Whisper-large-v3 Speech-to-Text service
+│   │   └── gemini_service.py   # Google Gemini 1.5 Flash batching reasoning service
 │   ├── .env.example            # Mẫu biến môi trường cho AI (GROQ_API_KEY, GEMINI_API_KEY)
 │   └── requirements.txt        # Thư viện Python riêng cho AI
 │
@@ -62,9 +62,9 @@ ai-english-conversation-system/
 
 ## 2. Phân công sở hữu module (Code Ownership)
 
-| Thư mục | Thành viên phụ trách chính | Nhiệm vụ chính |
+| Thư mục | Thành viên phụ trách | Nhiệm vụ chính |
 | :--- | :--- | :--- |
-| `core_backend/` | **Phạm Đức Toàn** (Lead) | FastAPI, PostgreSQL, Authentication, CRUD Scenarios |
-| `ai_engine/` | **Phạm Đức Toàn** (Lead) | Groq Whisper STT, Gemini LLM Batching, Error Fallback |
+| `core_backend/` | **Phạm Đức Toàn**, **Nguyễn Nhật Hảo** | FastAPI, PostgreSQL, Authentication, CRUD Scenarios |
+| `ai_engine/` | **Phạm Đức Toàn** | Groq Whisper STT, Gemini LLM Batching, Error Fallback |
 | `frontend/` | **Hồ Minh Quân** | Next.js, MediaRecorder, VAD, Animation, Subtitle UI |
-| `docs/` | Cả nhóm | Cập nhật tài liệu, biểu đồ theo tiến độ từng sprint |
+| `docs/` | **Đỗ Ngọc Gia Bảo**, Cả nhóm | Nội dung kịch bản, ngân hàng từ vựng, tài liệu & sơ đồ |

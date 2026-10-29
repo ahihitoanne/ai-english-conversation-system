@@ -13,18 +13,16 @@ Tài liệu này cung cấp danh sách đầy đủ các API endpoints được 
 ### 1.1. Gửi Lượt Nói Của Người Dùng (Process Chat Turn)
 Thực hiện nhận âm thanh từ người dùng, gọi STT, phân tích LLM 3-trong-1 và lưu lịch sử.
 
-- **Endpoint:** `POST /chat/turn`
+- **Endpoint:** `POST /api/v1/chat/voice-turn` (hoặc `POST /chat/voice-turn`)
 - **Content-Type:** `multipart/form-data`
 - **Request Parameters / Form Fields:**
 
 | Trường | Kiểu dữ liệu | Bắt buộc | Diễn giải |
 | :--- | :--- | :--- | :--- |
-| `audio_file` | `UploadFile (binary)` | Không* | File âm thanh giọng nói (`.wav`, `.webm`, `.mp3`) |
-| `session_id` | `string (UUID)` | Có | Mã phiên học hiện tại |
-| `turn_index` | `integer` | Có | Số thứ tự của lượt thoại (bắt đầu từ 1) |
-| `text_input` | `string` | Không* | Nhập chữ trực tiếp nếu người dùng không dùng micro |
-
-*\* Phải cung cấp ít nhất một trong hai: `audio_file` hoặc `text_input`.*
+| `audio` | `UploadFile (binary)` | Có | File âm thanh giọng nói (`.wav`, `.webm`, `.mp3`) |
+| `scenario_id` | `integer` | Có | ID kịch bản hội thoại đang tham gia |
+| `session_id` | `integer` | Không | ID phiên học để lưu vết lịch sử |
+| `turn_index` | `integer` | Không | Số thứ tự của lượt thoại (mặc định: 1) |
 
 - **Response Payload (200 OK):**
 ```json

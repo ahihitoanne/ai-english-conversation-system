@@ -9,9 +9,9 @@
 
 | MSSV | Họ và tên | Vai trò | Module chủ sở hữu |
 | :---: | :--- | :--- | :--- |
-| **24120467** | Phạm Đức Toàn | **Backend Developer / Lead** | `core_backend/` + `ai_engine/` (Groq, Gemini, US04). Quản lý repo |
-| **19120501** | Nguyễn Nhật Hảo | Scrum Master | Auth (US01), Admin Portal (US06), Deploy |
-| **24120263** | Đỗ Ngọc Gia Bảo | Product Owner | Nội dung kịch bản & từ vựng (US02, US03), kiểm thử nghiệm thu |
+| **24120467** | Phạm Đức Toàn | Backend Developer | `core_backend/` + `ai_engine/` (Groq, Gemini, US04). Quản lý repo |
+| **19120501** | Nguyễn Nhật Hảo | Fullstack Developer | Auth (US01), Admin Portal (US06), Deploy |
+| **24120263** | Đỗ Ngọc Gia Bảo | Content / QA Engineer | Nội dung kịch bản & từ vựng (US02, US03), kiểm thử nghiệm thu |
 | **19120627** | Hồ Minh Quân | Frontend Developer | `frontend/` (MediaRecorder, phụ đề, báo cáo, US05) |
 
 > **Quy tắc:** Mỗi file có 1 thành viên phụ trách chính (owner) và ít nhất 1 người review trước khi merge.

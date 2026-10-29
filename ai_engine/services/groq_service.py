@@ -1,10 +1,16 @@
+import os
 import io
 from groq import Groq
-from app.core.config import settings
+
+try:
+    from app.core.config import settings
+    DEFAULT_GROQ_KEY = getattr(settings, "GROQ_API_KEY", "")
+except Exception:
+    DEFAULT_GROQ_KEY = os.getenv("GROQ_API_KEY", "")
 
 class GroqService:
-    def __init__(self):
-        self.api_key = settings.GROQ_API_KEY
+    def __init__(self, api_key: str = None):
+        self.api_key = api_key or DEFAULT_GROQ_KEY or os.getenv("GROQ_API_KEY", "")
         self.client = None
         if self.api_key and self.api_key != "gsk_your_groq_api_key_here":
             try:

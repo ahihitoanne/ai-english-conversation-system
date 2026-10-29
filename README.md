@@ -87,14 +87,14 @@ run_services.bat
 
 ---
 
-## 👥 Thành viên nhóm
+## 👥 Thành viên thực hiện (Team Members)
 
 | MSSV | Họ và tên | Vai trò | Module phụ trách chính |
 | :---: | :--- | :--- | :--- |
-| **24120467** | Phạm Đức Toàn | **Backend Developer / Lead** | `core_backend` + `ai_engine` — tích hợp Groq Whisper, Gemini, xử lý lỗi API, Better Phrasing (US04). Quản lý repo & tích hợp hệ thống |
-| **19120501** | Nguyễn Nhật Hảo | **Scrum Master** | Auth & phân quyền (US01), Admin Portal (US06), triển khai (deploy, HTTPS, biến môi trường) |
-| **24120263** | Đỗ Ngọc Gia Bảo | **Product Owner** | Thư viện kịch bản & từ vựng (US02, US03), nội dung hội thoại mẫu, kiểm thử nghiệm thu |
-| **19120627** | Hồ Minh Quân | **Frontend Developer** | `frontend` — giao diện phòng luyện thoại, MediaRecorder, phụ đề, báo cáo & lịch sử (US05) |
+| **24120467** | Phạm Đức Toàn | Backend Developer | `core_backend` + `ai_engine` — tích hợp Groq Whisper, Gemini, xử lý lỗi API, Better Phrasing (US04). Quản lý repo & tích hợp hệ thống |
+| **19120501** | Nguyễn Nhật Hảo | Fullstack Developer | Auth & phân quyền (US01), Admin Portal (US06), triển khai (deploy, Docker, HTTPS, biến môi trường) |
+| **24120263** | Đỗ Ngọc Gia Bảo | Content / QA Engineer | Thư viện kịch bản & từ vựng (US02, US03), kịch bản hội thoại mẫu, kiểm thử nghiệm thu |
+| **19120627** | Hồ Minh Quân | Frontend Developer | `frontend` — giao diện phòng luyện thoại, MediaRecorder, phụ đề, báo cáo & lịch sử (US05) |
 
 ---
 

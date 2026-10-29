@@ -1,10 +1,16 @@
+import os
 import json
 import google.generativeai as genai
-from app.core.config import settings
+
+try:
+    from app.core.config import settings
+    DEFAULT_GEMINI_KEY = getattr(settings, "GEMINI_API_KEY", "")
+except Exception:
+    DEFAULT_GEMINI_KEY = os.getenv("GEMINI_API_KEY", "")
 
 class GeminiService:
-    def __init__(self):
-        self.api_key = settings.GEMINI_API_KEY
+    def __init__(self, api_key: str = None):
+        self.api_key = api_key or DEFAULT_GEMINI_KEY or os.getenv("GEMINI_API_KEY", "")
         self.model = None
         if self.api_key and self.api_key != "your_gemini_api_key_here":
             try:
