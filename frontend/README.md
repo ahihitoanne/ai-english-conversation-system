@@ -1,25 +1,43 @@
 # VocabTalk Frontend
 
-**Framework:** Next.js (App Router) + Tailwind CSS + Framer Motion
+**Framework:** Next.js 14 (App Router) + TypeScript + Tailwind CSS
 
-## Setup
-```bash
-# Initialize Next.js in this directory
-npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+## Chạy ở máy local
 
-# Install audio & animation libs
-npm install @ricky0123/vad-web framer-motion lucide-react clsx tailwind-merge
+1. Copy biến môi trường (nếu chưa có `.env.local`):
+   ```powershell
+   Copy-Item .env.example .env.local
+   ```
+2. Cài đặt dependencies:
+   ```powershell
+   npm install
+   ```
+3. Khởi động dev server ở cổng `3000`:
+   ```powershell
+   npm run dev
+   ```
 
-npm run dev
-```
+Mở trình duyệt tại `http://localhost:3000` (đảm bảo Backend FastAPI đang chạy ở `http://localhost:8000`).
 
-## Structure (to be populated)
-```
+## Cấu trúc hiện tại
+```text
 frontend/
-├── public/
-├── src/
-│   ├── app/                  # Next.js App Router pages
-│   ├── components/           # VoiceVisualizer, Subtitles, HintButtons, ...
-│   └── hooks/                # useVAD, useAudioRecorder, useSpeechSynthesis
-└── package.json
+├── .env.example
+├── .env.local
+├── package.json
+└── src/
+    ├── app/
+    │   ├── globals.css
+    │   ├── layout.tsx
+    │   └── page.tsx
+    ├── components/
+    │   ├── ResultPanel.tsx        # Xuất toàn bộ text kết quả, gợi ý, latency & JSON
+    │   ├── ScenarioSelector.tsx   # Tải & chọn kịch bản từ GET /api/v1/scenarios
+    │   └── VoiceTestWorkbench.tsx # Giao diện test Mic / File Audio / Text
+    ├── hooks/
+    │   └── useAudioRecorder.ts    # MediaRecorder ghi âm trình duyệt (.webm)
+    ├── lib/
+    │   └── api.ts                 # Gọi FastAPI (/health, /scenarios, /voice-turn, /text-turn)
+    └── types/
+        └── chat.ts
 ```
