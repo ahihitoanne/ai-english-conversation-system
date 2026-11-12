@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-light: #f8fafc;
+  --bg-dark: #0f172a;
+  --surface-light: #ffffff;
+  --surface-dark: #1e293b;
+  --surface-muted-light: #f1f5f9;
+  --surface-muted-dark: #0b1220;
+  --border-light: #cbd5e1;
+  --border-dark: #334155;
+  --text-light: #0f172a;
+  --text-dark: #f8fafc;
+  --text-muted-light: #475569;
+  --text-muted-dark: #cbd5e1;
+  --accent-light: #0b57d0;
+  --accent-dark: #60a5fa;
+  --accent-contrast-light: #ffffff;
+  --accent-contrast-dark: #0b1220;
+  --ok-bg-light: #dcfce7;
+  --ok-bg-dark: #14532d;
+  --ok-text-light: #166534;
+  --ok-text-dark: #bbf7d0;
+  --danger-bg-light: #fee2e2;
+  --danger-bg-dark: #7f1d1d;
+  --danger-text-light: #991b1b;
+  --danger-text-dark: #fecaca;
+  --scrollbar-track-light: #e2e8f0;
+  --scrollbar-track-dark: #1e293b;
+  --scrollbar-thumb-light: #64748b;
+  --scrollbar-thumb-dark: #94a3b8;
+
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --surface-muted: var(--surface-muted-light);
+  --border: var(--border-light);
+  --text: var(--text-light);
+  --text-muted: var(--text-muted-light);
+  --accent: var(--accent-light);
+  --accent-contrast: var(--accent-contrast-light);
+  --ok-bg: var(--ok-bg-light);
+  --ok-text: var(--ok-text-light);
+  --danger-bg: var(--danger-bg-light);
+  --danger-text: var(--danger-text-light);
+  --scrollbar-track: var(--scrollbar-track-light);
+  --scrollbar-thumb: var(--scrollbar-thumb-light);
+
+  color-scheme: light dark;
+  accent-color: var(--accent);
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--bg-dark);
+    --surface: var(--surface-dark);
+    --surface-muted: var(--surface-muted-dark);
+    --border: var(--border-dark);
+    --text: var(--text-dark);
+    --text-muted: var(--text-muted-dark);
+    --accent: var(--accent-dark);
+    --accent-contrast: var(--accent-contrast-dark);
+    --ok-bg: var(--ok-bg-dark);
+    --ok-text: var(--ok-text-dark);
+    --danger-bg: var(--danger-bg-dark);
+    --danger-text: var(--danger-text-dark);
+    --scrollbar-track: var(--scrollbar-track-dark);
+    --scrollbar-thumb: var(--scrollbar-thumb-dark);
+  }
+}
+
+@supports (color: light-dark(white, black)) {
+  :root {
+    --bg: light-dark(var(--bg-light), var(--bg-dark));
+    --surface: light-dark(var(--surface-light), var(--surface-dark));
+    --surface-muted: light-dark(var(--surface-muted-light), var(--surface-muted-dark));
+    --border: light-dark(var(--border-light), var(--border-dark));
+    --text: light-dark(var(--text-light), var(--text-dark));
+    --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+    --accent: light-dark(var(--accent-light), var(--accent-dark));
+    --accent-contrast: light-dark(var(--accent-contrast-light), var(--accent-contrast-dark));
+    --ok-bg: light-dark(var(--ok-bg-light), var(--ok-bg-dark));
+    --ok-text: light-dark(var(--ok-text-light), var(--ok-text-dark));
+    --danger-bg: light-dark(var(--danger-bg-light), var(--danger-bg-dark));
+    --danger-text: light-dark(var(--danger-text-light), var(--danger-text-dark));
+    --scrollbar-track: light-dark(var(--scrollbar-track-light), var(--scrollbar-track-dark));
+    --scrollbar-thumb: light-dark(var(--scrollbar-thumb-light), var(--scrollbar-thumb-dark));
+  }
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+:where(a:any-link, button, input, select, textarea, summary, [tabindex="0"]):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  font-size: max(1rem, 1em);
+}
+
+.tap-target {
+  min-block-size: 48px;
+}
+
+.surface-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.surface-muted {
+  background-color: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+.code-viewer {
+  color-scheme: dark;
+  background-color: #0b1220;
+  color: #e2e8f0;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  overflow-x: auto;
+  max-block-size: 20rem;
+}
+
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+

@@ -1,6 +1,8 @@
-from typing import List, Union
+from pathlib import Path
+from typing import List
 from pydantic_settings import BaseSettings
-from pydantic import AnyHttpUrl, validator
+
+_CORE_ENV_FILE = str(Path(__file__).resolve().parent.parent.parent / ".env")
 
 class Settings(BaseSettings):
     APP_NAME: str = "VocabTalk-API"
@@ -10,9 +12,12 @@ class Settings(BaseSettings):
     # PostgreSQL Database URL
     DATABASE_URL: str = "postgresql://postgres:postgrespassword@localhost:5432/vocabtalk"
     
-    # API Keys
+    # API Keys & AI Models
     GROQ_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-3.5-flash-lite"
+    GEMINI_FALLBACK_MODELS: str = "gemini-3.8-flash"
+    AI_TIMEOUT_SECONDS: float = 10.0
     
     # Security
     SECRET_KEY: str = "vocabtalk_dev_secret_key_123456789"
@@ -26,7 +31,7 @@ class Settings(BaseSettings):
         return [origin.strip() for origin in self.ALLOWED_ORIGINS.split(",") if origin.strip()]
 
     class Config:
-        env_file = ".env"
+        env_file = _CORE_ENV_FILE
         env_file_encoding = "utf-8"
         case_sensitive = True
 
