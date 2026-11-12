@@ -43,7 +43,6 @@ ai-english-conversation-system/
 └── README.md
 ```
 
-> **Lưu ý:** Thư mục `docs/` (tài liệu nộp bài) được lưu cục bộ và **không được push lên GitHub** (đã thêm vào `.gitignore`).
 
 ---
 
